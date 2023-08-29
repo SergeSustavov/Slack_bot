@@ -17,12 +17,11 @@ future = client.chat_postMessage(
 
 loop = asyncio.get_event_loop()
 try:
-    # run_until_complete returns the Future's result, or raise its exception.
     response = loop.run_until_complete(future)
     assert response["message"]["text"] == "Zdarova, epta"
 except SlackApiError as e:
     assert e.response["ok"] is False
-    assert e.response["error"]  # str like 'invalid_auth', 'channel_not_found'
+    assert e.response["error"]
     print(f"Got an error: {e.response['error']}")
 finally:
     loop.close()
